@@ -1,0 +1,56 @@
+---
+
+- name: Practicing-Modules
+  hosts: test_servers
+  become: true
+  vars:
+    server: ubuntu
+    version_number: 23
+  tasks:
+    - name: testing template
+      template:
+        src: file1.j2
+        dest: /root/examples/rut2      
+    - name: Create a Folder
+      file:
+        path: /root/
+        name: examples
+        state: directory
+        mode: '0755'
+
+    - name: Create a file
+      file:
+        remote_src: yes       
+        path: /root/examples/rut4
+        state: touch
+        mode: u=rwx,g=rx,o=rx
+        owner: root
+        group: root 
+
+    - name: Add content to afile
+      copy:
+        dest: /root/kavana4
+        content: |
+           Hello DevOps
+           You're not so easy  
+   
+    - name: Copying the files
+      copy:
+        remote_src: yes
+        src: /root/kavana4
+        dest: /root/examples/
+        mode: '0777'
+        owner: root
+        group: root
+
+    - name: ading lines to file
+      lineinfile:
+        path: /root/examples/kavana4
+        line: We are doining Ansible Modules today
+        create: yes
+
+    - name: replacing the line
+      lineinfile:
+        path: /root/examples/kavana4
+        regexp: "^No"
+        line: This is not fair with us 

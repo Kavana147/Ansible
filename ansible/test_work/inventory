@@ -1,0 +1,10 @@
+[web_servers]
+server1 ansible_host=172.31.10.108
+server2 ansible_host=172.31.10.15
+
+[test_servers]
+server3 ansible_host=172.31.1.156
+server4 ansible_host=172.31.9.86
+
+[build_servers]
+server5 ansible_host=172.31.0.155

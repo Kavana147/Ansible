@@ -1,0 +1,8 @@
+---
+
+- name: Installing-jenkins-using-roles
+  hosts: build_servers
+  roles:
+    - role: jenkins
+      server: "slave5"
+      version: 2.346.1

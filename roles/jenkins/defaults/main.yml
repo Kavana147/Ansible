@@ -1,0 +1,5 @@
+---
+# defaults file for jenkins
+#
+server: 'Slow'
+version: 3.2.1

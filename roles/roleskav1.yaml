@@ -1,0 +1,10 @@
+---
+
+- name: Executing-Kavana-Roles
+  hosts: test_servers
+  roles:
+    - role: kavana
+      server: 'pranav'
+      version_number: 21.7
+
+

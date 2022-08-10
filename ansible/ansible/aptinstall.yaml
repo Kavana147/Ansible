@@ -1,0 +1,17 @@
+---
+
+- name: Installing-packages
+  hosts: build_servers
+  tasks:
+    - name: using apt module
+      apt: 
+        state: present
+        name: 
+         - net-tools
+         - curl
+      notify: app-installed
+
+  handlers: 
+    - name: app-installed
+      shell: netstat -at
+

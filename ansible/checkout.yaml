@@ -1,0 +1,6 @@
+---
+
+- name: to-checkout-git-repo
+  hosts: build_servers
+  tasks:
+    - name: 

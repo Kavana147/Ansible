@@ -1,0 +1,5 @@
+---
+# vars file for jenkins
+#
+server: 'Fast'
+version: 7.8.9

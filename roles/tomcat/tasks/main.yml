@@ -1,0 +1,76 @@
+---
+# tasks file for tomcat
+
+- name: update packages
+  apt:
+    update_cache: yes
+
+- name: install java
+  become: true
+  apt:
+    name: 
+      - default-jre
+      - maven
+    state: present
+
+- name: cloning the repo 
+  become: true
+  git:
+    repo: https://github.com/Kavana147/hello-world-war.git
+    dest: /root/projects/
+  
+- name: installing maven
+  become: true
+  shell: |
+    cd /projects/
+    mvn package
+    
+- name: getting url
+  become: true
+  get_url:
+    url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz
+    dest: /opt/
+
+- name: extract tomcat packages
+  become: true
+  unarchive:
+    remote_src: yes
+    src: /opt/apache-tomcat-9.0.65.tar.gz
+    dest: /opt/
+
+- name: delete zip file
+  become: true
+  shell: rm -rf /opt/apache-tomcat-9.0.65.gz
+
+- name: starting tomcat
+  become: true
+  shell: chdir=/opt/apache-tomcat-9.0.65/bin/ nohup ./startup.sh & 
+
+- name: change the port
+  become: true
+  copy:
+    src: /tomcat-files/server.xml
+    dest: /opt/apache-tomcat-9.0.65/conf/server.xml
+
+- name: add user
+  become: true
+  copy:
+    src: /tomcat-files/tomcat-users.xml
+    dest: /opt/apache-tomcat-9.0.65/conf/tomcat-users.xml
+
+- name: change permission in host-manager
+  become: true
+  copy:
+    src: /tomcat-files/hcontext.xml
+    dest: /opt/apache-tomcat-9.0.65/webapps/host-manager/META-INF/context.xml
+
+- name: change permission in manager
+  become: true
+  copy:
+    src: /tomcat-files/context.xml
+    dest: /opt/apache-tomcat-9.0.65/webapps/manager/META-INF/context.xml
+
+- name: restart
+  become: true
+  shell: chdir= /opt/apache-tomcat-9.0.64/bin/ nohup ./startup.sh & 
+

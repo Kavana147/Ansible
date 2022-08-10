@@ -1,0 +1,15 @@
+---
+
+- name: Checking-registry-and-Debug
+  hosts: test_servers
+  tasks:
+    - name: registrytesting
+      shell: | 
+        touch test1
+        ls > test1
+        cat test1
+      register: output_shell
+
+    - name: dispalying the registry output
+      debug: 
+        var: output_shell.stdout_lines

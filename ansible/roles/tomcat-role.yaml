@@ -1,0 +1,18 @@
+---
+
+- name: Installing-tomcat-using-roles
+  hosts: build_servers
+  roles:
+    - tomcat
+
+      #tasks:
+      #- name: copying template 
+      # template:
+      # src: /root/roles/tomcat/templates/file1.j2
+      # dest: /root/examples/rug2
+      # register: output
+
+      #- name: displaying message
+      #debug:
+      # var: output.stdout_lines
+

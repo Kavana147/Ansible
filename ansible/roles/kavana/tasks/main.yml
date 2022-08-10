@@ -1,0 +1,7 @@
+---
+# tasks file for kavana
+
+- name: testting module
+  template:
+    src: templates/file1.j2
+    dest: /root/examples/rut2

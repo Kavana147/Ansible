@@ -1,0 +1,21 @@
+---
+
+- name: To-display-the-outpu-of-encrypted-file
+  hosts: build_servers
+  vars:
+    mydata: "{{lookup('file', 'newv') }}"
+  tasks:
+          #- include_vars: vfile
+    - name: printing the output
+      debug:
+        var: mydata
+      notify: display_op
+
+  handlers: 
+    - name: display_op
+      debug:
+        msg: "print successful"
+
+
+    
+

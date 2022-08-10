@@ -1,0 +1,30 @@
+---
+
+- name: installing-tomcat
+  hosts: test_servers
+  become: true
+  tasks:
+    - name: update packages
+      apt: 
+        update_cache: yes
+
+    - name: install java
+      apt:
+        name: default-jre
+        state: present
+
+    - name: get the file from server
+      command: wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz
+
+    - name: unarchive
+      command: tar -xvvf apache-tomcat-9.0.64.tar.gz
+
+    - name: switch to tomcat directory
+      command: cp -r apache-tomcat-9.0.64/ /opt/
+
+    - name: start tomcat
+      become: true
+      shell: chdir=/opt/apache-tomcat-9.0.64/bin nohup ./startup.sh &
+
+
+

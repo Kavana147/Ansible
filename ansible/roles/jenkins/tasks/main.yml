@@ -1,0 +1,40 @@
+---
+# tasks file for jenkins
+#
+- name: getting wget
+  become: true
+  shell: |
+    wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+    sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+- name: update
+  apt:
+    update_cache: yes
+
+- name: install jenkins
+  apt:
+    name: jenkins
+    state: present
+
+- name: start jenkins
+  service:
+    name: jenkins
+    state: started
+
+- name: create a file
+  become: true
+  file:
+    path: /root/jenkinsinst
+    state: touch
+
+- name: copying the version details to a file
+  become: true
+  template:
+    #remote_src: yes
+    src: jenkins.j2
+    dest: /root/jenkinsinst
+  
+
+- name: displaying output
+  debug:
+    msg: "check template"

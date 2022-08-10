@@ -1,0 +1,42 @@
+---
+
+- name: MyFirstPlaybook
+  hosts: build_servers
+  tasks: 
+    - action: ping
+    - name: InstallPackages
+      apt:
+         name: 
+         - curl
+         state: absent
+    - name: create a folder
+      file:
+        path: /root/gitsave
+        state: directory
+      notify: output
+
+    - name: archiving the files
+      archive:
+        path: /root/GitPractice
+        dest: /root/hello/GitPractice.zip
+    
+
+    - name: unarchive the files
+      unarchive:
+        src: /root/hello/GitPractice.zip
+        dest: /root/gitsave/
+        remote_src: yes
+
+    - name: getting url
+      get_url:
+        url: https://www.bseindia.com/markets/MarketInfo/DispNewNoticesCirculars.aspx?page=20121022-22
+        dest: /root/hello/
+
+  handlers: 
+    - name: output
+      debug:
+        msg: "copy success"
+
+
+
+

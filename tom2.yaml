@@ -1,0 +1,45 @@
+---
+
+- name: installing-tomcat
+  hosts: build_servers
+  become: true
+  tasks:
+    - name: update packages
+      apt: 
+        update_cache: yes
+
+    - name: install java
+      apt:
+        name: default-jre
+        state: present
+
+        #- name: get the file from server
+      #command: "{{ item }}" 
+      #args:
+              #chdir: "/opt/" 
+        #with_items: 
+      #- "wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz"
+          #- "tar -xvvf apache-tomcat-9.0.64.tar.gz"
+          # - "rm -rf apache-tomcat-9.0.64.tar.gz"
+          # - "nohup sh apache-tomcat-9.0.64/bin/startup.sh &"
+
+    - name: checking loop
+      command: 
+        echo '{{ item.username }}' '{{ item.password }}'
+      loop:
+        - username: "kavana"
+          password: 12234
+        - username: "harshitha"
+          password: 12345      
+
+        
+    - name: registrytesting
+      shell: | 
+        touch test1
+        ls
+      register: output_shell
+
+    - name: dispalying the registry output
+      debug: 
+        var: output_shell.stdout_lines
+

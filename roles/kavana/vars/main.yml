@@ -1,0 +1,5 @@
+---
+# vars file for kavana
+
+server: 'kavana'
+version_number: 4.67

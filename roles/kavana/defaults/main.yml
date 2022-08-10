@@ -1,0 +1,5 @@
+---
+# defaults file for kavana
+
+server: 'ubuntu'
+version_number: 2.3

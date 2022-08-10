@@ -1,0 +1,26 @@
+---
+
+- name: UpdatingApt
+  hosts: build_servers
+  tasks: 
+    - name: updating cache
+      become: yes
+      apt:
+         update_cache: yes
+      notify: hello
+
+    - name: copying the file
+      copy:
+        src: checking
+        dest: /root/
+
+    - name: executing git
+      git:
+        repo: https://github.com/Kavana147/GitPractice.git
+        dest: /root/GitPractice
+        archive: /root/examples/GitPractice.zip
+  handlers:
+    - name: hello
+      shell: echo "output"
+        
+        
